@@ -47,11 +47,19 @@ class Products extends Component {
     }
 
 
-    onChangeProdGroup= (e)=>{
-        this.setState({
-            inputProductGroup:  e.target.value,
-            inputProductGroupID : e.target.id
+    onChangeProdGroup= async(e)=>{
+
+        let tempID = e.target.value
+        await apiCalls.getProductGroupFromID(tempID)
+        .then(res=>{
+            console.log(res)
+            this.setState({
+                inputProductGroup:  res.data.productGroup,
+                inputProductGroupID : tempID
+            })
         })
+        
+        console.log(this.state)
     }
     onChangeProduct= (e)=>{
         this.setState({
@@ -154,13 +162,13 @@ class Products extends Component {
                         
                     <div className="form-group">
                         <label htmlFor="inputProductGroup">Product Group</label>
-                            <select id="inputProductGroup" className="form-control"value={this.state.inputProductGroup} onChange={this.onChangeProdGroup}>
+                            <select id={this.state.inputProductGroupID} className="form-control"value={this.state.inputProductGroupID} onChange={this.onChangeProdGroup}>
 
                                 <option value='default' disabled>Choose...</option>
 
                                 {this.state.productGroups.map((el)=>{
                                     if(el.activeStatus){
-                                        return <option key={el._id} id={el._id}value={el.productGroup}>{el.productGroup}</option>
+                                        return <option key={el._id} id={el._id}value={el._id}>{el.productGroup}</option>
                                     }else return ""
                                     
                                 })}
