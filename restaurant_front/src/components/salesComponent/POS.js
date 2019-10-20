@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import SalesNavBar from './SalesNavBar'
 import PartnerGroupSale from './PartnerGroupSale';
 import PartnerSale from './PartnerSale';
-import ProductGroupSale from './ProductGroupSale';
+import ProductGroupSale from '../salesComponent/SalesSelection/ProductGroupSale';
 import ProductSale  from './ProductSale';
-import ProductMini from './MiniProductSale';
+import ProductMini from '../salesComponent/SalesSelection/MiniProductSale';
 import PartnerMini from './MiniPartnerSale';
 import SaleDisplay from './SalesDisplay/SalesDisplay';
-import { arrowFunctionExpression } from '@babel/types';
+import apiCalls from '../../config/apis'
+//import { arrowFunctionExpression } from '@babel/types';
 
 
 
@@ -15,7 +16,8 @@ class Pos extends Component {
     state = {
         selectedTab: '',
         selectedProdGroupProds: [],
-        selectedCardProducts: []
+        selectedCardProducts: [],
+        totalSale: ''
       }
 
 
@@ -37,35 +39,63 @@ class Pos extends Component {
         })
     }
 
-    sendToTopGrand=(arg1)=>{
-       
+    fromMiniCards=async(arg1, sign)=>{
+
+    
+        await apiCalls.getProductFromID(arg1)
+        .then((res)=>{
+
+            this.setState({
+                selectedCard: res.data
+            })
+        })
         
         let arrayofProductsToBeChecked =this.state.selectedCardProducts
+        let arg2 = this.state.selectedCard
 
-        if(arrayofProductsToBeChecked.some(el =>el._id === arg1._id)){
-           
+        if(arrayofProductsToBeChecked.some(el =>el._id === arg2._id)){  
     
             arrayofProductsToBeChecked.map((el)=>{
-                if (el._id ===  arg1._id) {
-               
-                    el.count ++
+                if (el._id ===  arg2._id) {
+                    if(sign === 'plus'){
+                         el.count ++
+                    }else{
+                        el.count --
+                    }
+                   
+                   el.cost = el.count * el.price
                 }
-            })
-
+                else{
+                    
+                }
+            })          
         }else {
-            arg1.count = 1
-            arrayofProductsToBeChecked.push(arg1)
 
+            arg2.count = 1
+            arg2.cost = arg2.count * arg2.price
+            arrayofProductsToBeChecked.push(arg2)
         }
-      
-
       
         this.setState({
             selectedCardProducts: arrayofProductsToBeChecked
-        })
+        })   
 
+        this.calculateTotal()
     }
 
+    calculateTotal=()=>{
+
+        // this.props.selectedCheckedProds
+        var total = 0
+        this.state.selectedCardProducts.forEach(el => {
+            total = total + el.cost
+        });
+
+        this.setState({
+            totalSale : total
+        })
+        
+     }
 
 
     render() { 
@@ -74,7 +104,7 @@ class Pos extends Component {
         let minrender
         switch(this.state.selectedTab){
 
-            case 'productGroup':rendered = <ProductGroupSale selectedProds={this.selectedProds}/> ; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleEvent={this.sendToTopGrand}/>
+            case 'productGroup':rendered = <ProductGroupSale selectedProds={this.selectedProds}/> ; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.fromMiniCards}/>
             break;
             case 'product': rendered = <ProductSale/>;
             break;
@@ -82,7 +112,7 @@ class Pos extends Component {
             break;
             case 'partner': rendered= <PartnerSale/>;
             break;
-            default: rendered=<ProductGroupSale selectedProds={this.selectedProds}/>; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleEvent={this.sendToTopGrand}/>
+            default: rendered=<ProductGroupSale selectedProds={this.selectedProds}/>; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.fromMiniCards}/>
 
         }
         
@@ -98,7 +128,7 @@ class Pos extends Component {
                     <div className="col-12 col-sm-6 col-md-8">
                     <div className="mr-1 ml-1 mt-2"style={{backgroundColor:"rgb(230,229,229)", borderRadius:15}}>
                         
-                        <SaleDisplay selectedCheckedProds={this.state.selectedCardProducts}/> 
+                        <SaleDisplay selectedCheckedProds={this.state.selectedCardProducts} totalSale={this.state.totalSale} handlePlusMinusEvent={this.fromMiniCards}/> 
 
                     </div>
                     </div>

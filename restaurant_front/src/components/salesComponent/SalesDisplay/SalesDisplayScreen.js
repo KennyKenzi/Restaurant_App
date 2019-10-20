@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import SalesList from './SalesDisplayListItem'
 
 class SalesScreen extends Component {
-    state = {  }
-
- 
+    state = { }
 
 
     render() { 
         return ( 
             <div style={{height: 345, backgroundColor:"white", borderRadius:15, margin:15, overflow: "auto"}}>
-                <h3>CHECK</h3>
+                <h3>CHECKOUT</h3>
            
                 <div>
 
@@ -28,15 +27,9 @@ class SalesScreen extends Component {
 
                         {
                         this.props.selectedCheckedProds.map((el, index)=>{
-                            if(this.props.selectedCheckedProds){
+                            if(el){
                                 return (
-                                    <tr key={el._id}>
-                                    <th scope="row" style={{padding: 0}}>{index + 1}</th>
-                                    <td style={{padding: 0}}>{el.name}</td>
-                                    <td style={{padding: 0}}>{el.count}</td>
-                                    <td style={{padding: 0}}>{el.price}</td>
-                                    <td style={{padding: 0}}>{el.price * el.count}</td>
-                                    </tr>
+                                   <SalesList listItems={el} index={index} key={el._id}/>
                                 )
                             } else{
                                 return ""

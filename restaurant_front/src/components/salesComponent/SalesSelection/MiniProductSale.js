@@ -14,28 +14,13 @@ class ProductMiniSale extends Component {
 
 
 
-    // getData= async()=>{
-    //     //get products from product group
-
-        
-    // }
     
 
-    sendToTop=(arg1)=>{
+    sendToTopFromMiniProductSale=(arg1, arg3)=>{
+     
  
-        this.props.handleEvent(arg1)
+        this.props.handleCheckoutListEvent(arg1, arg3)
     }
-
-    // onClickEvent=param=>()=>{
-    
-
-    //     //getproduct from product ID
-    //     apiCalls.getProductFromID(param)
-    //     .then((res)=>{
-    //         console.log(res.data)
-    
-    //     })
-    // }
 
 
     render() { 
@@ -48,7 +33,7 @@ class ProductMiniSale extends Component {
                     {
                         this.props.selectedGroupProds.map((el)=>{
                             if(el.activeStatus){
-                                return( <MiniCards key={el._id} data={el} sendToTop={this.sendToTop}/>
+                                return( <MiniCards key={el._id} data={el} sendToTopFromMiniCards={this.sendToTopFromMiniProductSale}/>
                             )
                             
                              }else{

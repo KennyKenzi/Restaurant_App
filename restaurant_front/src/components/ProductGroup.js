@@ -77,12 +77,12 @@ class ProductGroup extends Component {
             buttonlabel: "Create"
           })
           
-           await this.getData()
+          this.getData()
 
         
     }
 
-    editAction= param => (e) =>{
+    editAction= param => async(e) =>{
       e.preventDefault()
 
       apiCalls.getProductGroupFromID(param)
@@ -97,7 +97,7 @@ class ProductGroup extends Component {
         })
       })
 
-
+      this.getData()
 
     }
 

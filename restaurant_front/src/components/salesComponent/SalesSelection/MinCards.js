@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import logo from '../../logo.svg';
-import apiCalls from './../../config/apis'
+import logo from '../../../logo.svg';
+
 
 
 class MiniCards extends Component {
     state = { 
        selectedPRoductToCheck : ''
      }
-s
+
 
 
 
     handleEvent=param=>async()=>{
-        await apiCalls.getProductFromID(param)
-        .then((res)=>{
+        // await apiCalls.getProductFromID(param)
+        // .then((res)=>{
 
-            this.setState({
-                selectedPRoductToCheck: res.data
-            })
-            // console.log(res.data)
-        })
-       this.props.sendToTop(this.state.selectedPRoductToCheck)
-
+        //     this.setState({
+        //         selectedPRoductToCheck: res.data
+        //     })
+        //     // console.log(res.data)
+        // })
+       this.props.sendToTopFromMiniCards(param, 'plus')
+        
     }
 
     

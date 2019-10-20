@@ -86,4 +86,4 @@ router.post('/api/product/update/:id', (req, res)=>{
     })
 })
 
-module.exports = route
+module.exports = router

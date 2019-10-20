@@ -116,7 +116,8 @@ class Products extends Component {
             inputPrice: '',
             buttonlabel:'Create'
         })
-         await this.getData() 
+         
+        this.getData() 
     }
     
     toEditEvent=param=>(e)=>{
@@ -137,6 +138,7 @@ class Products extends Component {
               
             })
           })
+          this.getData()
 
     }
   

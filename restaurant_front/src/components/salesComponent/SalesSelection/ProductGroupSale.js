@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import apiCalls from '../../config/apis'
-import logo from '../../logo.svg'
+import apiCalls from '../../../config/apis'
+import logo from '../../../logo.svg'
 
 class ProductGroupSale extends Component {
     state = { 
@@ -9,9 +9,11 @@ class ProductGroupSale extends Component {
         displayedProdsFromProdGroup: ''
      }
  
-        componentDidMount=()=>{
-            this.getProductGroupData()
-        }
+    componentDidMount=()=>{
+
+        this.getProductGroupData()
+        
+    }
 
     getProductGroupData=()=>{
         apiCalls.getAllProductGroups()
