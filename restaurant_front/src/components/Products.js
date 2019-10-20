@@ -100,7 +100,7 @@ class Products extends Component {
                 unitOfMeasure: this.state.inputUOM,
                 activeStatus: this.state.active
                 }
-                await axios.apiCalls.createProduct(productBody)
+                await apiCalls.createProduct(productBody)
                 // .then(res=>console.log('here',res.data))
                 
         }
