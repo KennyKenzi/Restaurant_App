@@ -19,7 +19,7 @@ class SalesList extends Component {
     }
 
     changeQuantity=(arg1, arg2)=>{
-     console.log(arg1, arg2)
+     this.props.sendToTopFromDisplayList(arg1, arg2)
     }
 
     iconStyle=()=>{
@@ -40,13 +40,13 @@ class SalesList extends Component {
             <td style={{ padding: 0 }} /*style={{float:"left"}}*/>{name}</td>
 
             <td style={{ padding: 0 }}>
-              <button  onClick={this.changeQuantity(_id, 'minus')}>
+              <button  onClick={()=>this.changeQuantity(_id, 'minus')}>
                 <img src={minus} alt='' style={this.iconStyle()} />
               </button>
 
                 <input style={{ width: 40 }} value={count} onChange={this.onChangeEvent(_id)} ></input>
 
-              <button onClick={this.changeQuantity(_id, 'plus')}>
+              <button onClick={()=>this.changeQuantity(_id, 'plus')}>
                 <img src={plus} alt='' style={this.iconStyle()} />
               </button>
             </td>

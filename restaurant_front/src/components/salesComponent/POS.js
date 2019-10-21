@@ -39,7 +39,7 @@ class Pos extends Component {
         })
     }
 
-    fromMiniCards=async(arg1, sign)=>{
+    counterFromBottom=async(arg1, sign)=>{
 
     
         await apiCalls.getProductFromID(arg1)
@@ -104,7 +104,7 @@ class Pos extends Component {
         let minrender
         switch(this.state.selectedTab){
 
-            case 'productGroup':rendered = <ProductGroupSale selectedProds={this.selectedProds}/> ; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.fromMiniCards}/>
+            case 'productGroup':rendered = <ProductGroupSale selectedProds={this.selectedProds}/> ; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.counterFromBottom}/>
             break;
             case 'product': rendered = <ProductSale/>;
             break;
@@ -112,7 +112,7 @@ class Pos extends Component {
             break;
             case 'partner': rendered= <PartnerSale/>;
             break;
-            default: rendered=<ProductGroupSale selectedProds={this.selectedProds}/>; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.fromMiniCards}/>
+            default: rendered=<ProductGroupSale selectedProds={this.selectedProds}/>; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.counterFromBottom}/>
 
         }
         
@@ -128,7 +128,7 @@ class Pos extends Component {
                     <div className="col-12 col-sm-6 col-md-8">
                     <div className="mr-1 ml-1 mt-2"style={{backgroundColor:"rgb(230,229,229)", borderRadius:15}}>
                         
-                        <SaleDisplay selectedCheckedProds={this.state.selectedCardProducts} totalSale={this.state.totalSale} handlePlusMinusEvent={this.fromMiniCards}/> 
+                        <SaleDisplay selectedCheckedProds={this.state.selectedCardProducts} totalSale={this.state.totalSale} handlePlusMinusEvent={this.counterFromBottom}/> 
 
                     </div>
                     </div>

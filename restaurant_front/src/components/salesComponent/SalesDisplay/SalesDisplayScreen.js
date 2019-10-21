@@ -5,6 +5,12 @@ class SalesScreen extends Component {
     state = { }
 
 
+    sendToTop=(arg1, arg2)=>{
+
+        this.props.sendToTop(arg1, arg2)
+
+    }
+
     render() { 
         return ( 
             <div style={{height: 345, backgroundColor:"white", borderRadius:15, margin:15, overflow: "auto"}}>
@@ -29,7 +35,7 @@ class SalesScreen extends Component {
                         this.props.selectedCheckedProds.map((el, index)=>{
                             if(el){
                                 return (
-                                   <SalesList listItems={el} index={index} key={el._id}/>
+                                   <SalesList listItems={el} index={index} key={el._id} sendToTopFromDisplayList={this.sendToTop}/>
                                 )
                             } else{
                                 return ""

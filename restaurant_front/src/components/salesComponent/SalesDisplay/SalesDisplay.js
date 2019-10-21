@@ -10,6 +10,12 @@ class SalesDisplay extends Component {
 
 
 
+     sendToTop=(arg1, arg2)=>{
+
+        this.props.handlePlusMinusEvent(arg1, arg2)
+     }
+
+
     render() { 
         return ( 
         
@@ -21,7 +27,7 @@ class SalesDisplay extends Component {
                  
             
             <div>
-             <SalesScreen selectedCheckedProds={this.props.selectedCheckedProds}/>   
+             <SalesScreen selectedCheckedProds={this.props.selectedCheckedProds} sendToTop={this.sendToTop}/>   
             </div>
             
             <div>

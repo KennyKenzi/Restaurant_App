@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AdminNavbar from './AdminNavbar'
-import axios from 'axios'
+//import axios from 'axios'
 import apiCalls from './../config/apis'
 
 
