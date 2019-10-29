@@ -18,7 +18,7 @@ class Admin_Nav extends Component {
                     <a className={ this.props.active === 'users' ? 'nav-link active' : 'nav-link'} href="/users">Users</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="/admin">Link</a>
+                    <a className={this.props.active === 'discount' ? 'nav-link active' : 'nav-link'} href="/discount">Discounts</a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link disabled" href="/admin">Disabled</a>

@@ -8,6 +8,7 @@ import ProductMini from '../salesComponent/SalesSelection/MiniProductSale';
 import PartnerMini from './MiniPartnerSale';
 import SaleDisplay from './SalesDisplay/SalesDisplay';
 import apiCalls from '../../config/apis'
+
 //import { arrowFunctionExpression } from '@babel/types';
 
 
@@ -17,7 +18,7 @@ class Pos extends Component {
         selectedTab: '',
         selectedProdGroupProds: [],
         selectedCardProducts: [],
-        totalSale: ''
+        totalSale: '',
       }
 
 
@@ -51,36 +52,41 @@ class Pos extends Component {
         })
         
         let arrayofProductsToBeChecked =this.state.selectedCardProducts
-        let arg2 = this.state.selectedCard
+        let selectedCard = this.state.selectedCard
 
-        if(arrayofProductsToBeChecked.some(el =>el._id === arg2._id)){  
-    
+        if(arrayofProductsToBeChecked.some(el =>el._id === selectedCard._id)){  
+           
             arrayofProductsToBeChecked.map((el)=>{
-                if (el._id ===  arg2._id) {
+
+                if (el._id ===  selectedCard._id) {
                     if(sign === 'plus'){
+
                          el.count ++
+
+                    }else if(el.count===1 && sign === 'minus'){
+                        
+                        arrayofProductsToBeChecked=arrayofProductsToBeChecked.filter(x=>x._id !== el._id)
+
                     }else{
                         el.count --
                     }
                    
                    el.cost = el.count * el.price
                 }
-                else{
-                    
-                }
+              
             })          
         }else {
-
-            arg2.count = 1
-            arg2.cost = arg2.count * arg2.price
-            arrayofProductsToBeChecked.push(arg2)
+                    selectedCard.count = 1
+                    selectedCard.cost = selectedCard.count * selectedCard.price
+                    arrayofProductsToBeChecked.push(selectedCard)
         }
-      
-        this.setState({
-            selectedCardProducts: arrayofProductsToBeChecked
+
+       this.setState({
+        selectedCardProducts: arrayofProductsToBeChecked
         })   
 
         this.calculateTotal()
+
     }
 
     calculateTotal=()=>{
@@ -96,6 +102,18 @@ class Pos extends Component {
         })
         
      }
+
+     clearDisplay=()=>{
+       
+        this.setState({
+            selectedCardProducts: [],
+            totalSale: ''
+        })
+    
+     }
+
+
+
 
 
     render() { 
@@ -118,38 +136,54 @@ class Pos extends Component {
         
        
 
-        return ( 
-            
-            <div>
+        return (
+          <div>
+            <SalesNavBar showTab={this.showTab} />
 
-                     <SalesNavBar showTab={this.showTab}/>
-
-                    <div className="container-fluid row" style={{backgroundColor:"white"}}>
-                    <div className="col-12 col-sm-6 col-md-8">
-                    <div className="mr-1 ml-1 mt-2"style={{backgroundColor:"rgb(230,229,229)", borderRadius:15}}>
-                        
-                        <SaleDisplay selectedCheckedProds={this.state.selectedCardProducts} totalSale={this.state.totalSale} handlePlusMinusEvent={this.counterFromBottom}/> 
-
-                    </div>
-                    </div>
-
-                    <div className="col-sm-6 col-md-4" >     
-                        <div className="mr-1 ml-1 mt-2"style={{backgroundColor:"rgb(230,229,229)" , borderRadius:15}}>
-                            {rendered}
-                        </div>
-                        <div className="mr-1 ml-1 mt-2"style={{backgroundColor:"rgb(230,229,229)" , borderRadius:15}}>  
-                            {minrender}
-                        </div>
-                    </div>
-
+            <div
+              className="container-fluid row"
+              style={{ backgroundColor: "white" }}
+            >
+              <div className="col-12 col-sm-6 col-md-8">
+                <div
+                  className="mr-1 ml-1 mt-2"
+                  style={{
+                    backgroundColor: "rgb(230,229,229)",
+                    borderRadius: 15
+                  }}
+                >
+                  <SaleDisplay
+                    selectedCheckedProds={this.state.selectedCardProducts}
+                    totalSale={this.state.totalSale}
+                    handlePlusMinusEvent={this.counterFromBottom}
+                    clearDisplay={this.clearDisplay}
+                  />
                 </div>
+              </div>
 
+              <div className="col-sm-6 col-md-4">
+                <div
+                  className="mr-1 ml-1 mt-2"
+                  style={{
+                    backgroundColor: "rgb(230,229,229)",
+                    borderRadius: 15
+                  }}
+                >
+                  {rendered}
+                </div>
+                <div
+                  className="mr-1 ml-1 mt-2"
+                  style={{
+                    backgroundColor: "rgb(230,229,229)",
+                    borderRadius: 15
+                  }}
+                >
+                  {minrender}
+                </div>
+              </div>
             </div>
-            
-
-
-            
-         );
+          </div>
+        );
     }
 }
  

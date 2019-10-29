@@ -10,7 +10,9 @@ const api={
     productGroupUpdate: backendurl + '/productGroup/update/',
     product: backendurl+'/products',
     productUpdate: backendurl + '/product/update/',
-    productMiniSale : backendurl + '/product/sale/'
+    productMiniSale : backendurl + '/product/sale/',
+    discount: backendurl + '/discounts',
+    discountUpdate: backendurl + '/discount/update/'
 }
 
 
@@ -72,6 +74,33 @@ const apiCalls={
         //arg1: body to post
         
        return axios.post(api.product, arg1)
+
+    },
+
+    createDiscount: (arg1)=>{
+
+        axios.post(api.discount, arg1)
+        .then((res)=>{
+            return res.data
+        })
+
+    },
+
+    getAllDiscount: ()=>{
+        
+        return axios.get(api.discount)
+     
+    },
+
+    getDiscountFromID: (arg)=>{
+
+        return axios.get(api.discountUpdate + arg)  
+
+    },
+
+    updateDiscount: (arg1, arg2)=>{
+
+        return axios.post(api.discountUpdate + arg1, arg2)
 
     }
 

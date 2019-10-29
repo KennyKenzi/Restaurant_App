@@ -83,7 +83,7 @@ class ProductGroup extends Component {
     }
 
     editAction= param => async(e) =>{
-      e.preventDefault()
+      //e.preventDefault()
 
       apiCalls.getProductGroupFromID(param)
       .then((res)=>{ 

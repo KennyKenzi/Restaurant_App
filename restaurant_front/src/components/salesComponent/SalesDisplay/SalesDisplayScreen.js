@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import SalesList from './SalesDisplayListItem'
+//import Popup from '../../Popup';
+//import Popup from 'reactjs-popup'
+
 
 class SalesScreen extends Component {
-    state = { }
+    state = { 
+        
+    }
 
 
     sendToTop=(arg1, arg2)=>{
@@ -11,13 +16,14 @@ class SalesScreen extends Component {
 
     }
 
+ 
+
     render() { 
         return ( 
             <div style={{height: 345, backgroundColor:"white", borderRadius:15, margin:15, overflow: "auto"}}>
                 <h3>CHECKOUT</h3>
            
                 <div>
-
 
                     <table className="table table-borderless">
                         <thead>
@@ -33,6 +39,8 @@ class SalesScreen extends Component {
 
                         {
                         this.props.selectedCheckedProds.map((el, index)=>{
+ 
+
                             if(el){
                                 return (
                                    <SalesList listItems={el} index={index} key={el._id} sendToTopFromDisplayList={this.sendToTop}/>

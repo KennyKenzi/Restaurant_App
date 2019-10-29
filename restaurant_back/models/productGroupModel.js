@@ -4,7 +4,8 @@ const productGroupSchema = new mongoose.Schema({
 
     productGroup:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     activeStatus:{

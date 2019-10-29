@@ -9,6 +9,7 @@ import Pos from './components/salesComponent/POS';
 import User from './components/User';
 import Products from './components/Products';
 import ProductGroup from './components/ProductGroup';
+import Discount from './components/Discount'
 // import PartnerGroupSale from './components/salesComponent/PartnerGroupSale';
 // import PartnerSale from './components/salesComponent/PartnerSale';
 // import ProductGroupSale from './components/salesComponent/ProductGroupSale';
@@ -48,6 +49,7 @@ class App extends Component {
         <Route path = "/productgroup" component = {ProductGroup}/>
         <Route path = "/admin" component = {Admin}/>
         <Route path = "/users" component = {User}/>
+        <Route path = "/discount" component = {Discount}/>
         {/* <Route path = "/productGroupSale" component = {ProductGroupSale}/>
         <Route path = "/productSale" component = {ProductSale}/>
         <Route path = "/partnerGroupSale" component = {PartnerGroupSale}/>

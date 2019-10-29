@@ -4,7 +4,8 @@ const productSchema = new mongoose.Schema({
 
     productGroup:{
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     productGroupID:{
         type: String,

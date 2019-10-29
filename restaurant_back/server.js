@@ -6,6 +6,7 @@ const cors = require ('cors')
 
 const productRouter = require('./routes/products');
 const productGroupRouter = require('./routes/productGroup');
+const discountRouter = require('./routes/discount')
 
 const PORT = 4000;
 
@@ -17,6 +18,7 @@ const PORT = 4000;
 
     app.use('/', productRouter)
     app.use('/', productGroupRouter)
+    app.use('/', discountRouter)
 
 
 
@@ -43,4 +45,4 @@ const PORT = 4000;
     console.log("Server is running on Port: " + PORT);
     });
 
-    module.exports = app
+    module.exports = app 
