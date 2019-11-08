@@ -54,6 +54,7 @@ router.post('/api/productGroup/update/:id', (req, res)=>{
             console.log(req.body)
             prodgrp.productGroup = req.body.productGroup;
             prodgrp.activeStatus = req.body.activeStatus;
+            prodgrp.discountID = req.body.discountID;
 
             try{
                 await prodgrp.save()

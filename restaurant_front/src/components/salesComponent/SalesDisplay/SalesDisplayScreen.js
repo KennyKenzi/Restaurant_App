@@ -39,7 +39,7 @@ class SalesScreen extends Component {
 
                         {
                         this.props.selectedCheckedProds.map((el, index)=>{
- 
+  
 
                             if(el){
                                 return (

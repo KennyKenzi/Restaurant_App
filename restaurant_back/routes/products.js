@@ -61,15 +61,17 @@ router.post('/api/product/update/:id', (req, res)=>{
             res.status(404).send("data is not found");
        
         else
-            console.log(req.body)
+            // console.log(req.body)
             prod.productGroup = req.body.productGroup;
             prod.productGroupID = req.body.productGroupID;
             prod.name = req.body.product;
             prod.price = req.body.price;
             prod.unitOfMeasure = req.body.UOM;
             prod.activeStatus = req.body.activeStatus;
+            prod.discountID = req.body.discountID;
 
             try{
+                console.log(prod)
                 await prod.save()
                 res.status(200).json(prod);
                

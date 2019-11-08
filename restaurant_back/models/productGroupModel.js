@@ -8,6 +8,10 @@ const productGroupSchema = new mongoose.Schema({
         unique: true
     },
 
+    discountID: {
+        type: String
+    },
+
     activeStatus:{
         type: Boolean,
         required: true

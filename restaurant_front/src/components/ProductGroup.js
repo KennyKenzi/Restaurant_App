@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AdminNavbar from './AdminNavbar';
 import apiCalls from '../config/apis'
-
+ 
 
 class ProductGroup extends Component {
     state = { 
@@ -9,6 +9,8 @@ class ProductGroup extends Component {
         active: false,
         buttonlabel: 'Create',
         toedit: '',
+        discount: 'default',
+        allDiscount: [],
         productGroupTable:[]
      }
    
@@ -17,10 +19,21 @@ class ProductGroup extends Component {
     //   console.log(apiCalls.getAllProductGroups())
       await apiCalls.getAllProductGroups()
       .then(res=>{
-        console.log(res.data)
+        
           this.setState({
           productGroupTable: res.data
+
      }) 
+    })
+
+
+//get all discounts
+    await apiCalls.getAllDiscount()
+    .then(res=>{
+      //console.log(res.data)
+      this.setState({
+        allDiscount: res.data
+      })
     })
     }
 
@@ -29,12 +42,21 @@ class ProductGroup extends Component {
     }
 
     onChangeProductGroup=(e)=>{
-     
+      
         this.setState({
             productGroup: e.target.value
         })
         
     }
+
+    onChangeDiscount=(e)=>{
+ 
+      this.setState({
+          discount: e.target.value
+      })
+
+      
+  }
 
     onChangeActiveLevel=(e)=>{
 
@@ -45,25 +67,52 @@ class ProductGroup extends Component {
     
     onSubmitEvent= async(e)=>{
 
-        e.preventDefault()
+         e.preventDefault()
 
         let productGroupBody
 
         if(this.state.toedit){
+          
+          if (this.state.discount === 'default'){
 
             productGroupBody = {
               productGroup: this.state.productGroup,
               activeStatus: this.state.active,
+              discountID: ''
             }
+            console.log('deone')
+          }else{
+
+            productGroupBody = {
+              productGroup: this.state.productGroup,
+              activeStatus: this.state.active,
+              discountID: this.state.discount
+            }
+            console.log(this.state.discount)
+          }
           
-            await apiCalls.updateProductGroup(this.state.toedit._id, productGroupBody)
+          await apiCalls.updateProductGroup(this.state.toedit._id, productGroupBody)
             
         }else {
 
+          if(this.state.discount === 'default'){
+
             productGroupBody ={
               productGroup: this.state.productGroup,
-              activeStatus: this.state.active
+              activeStatus: this.state.active,
+              discountID: ''
             };
+
+          }else {
+
+            productGroupBody ={
+              productGroup: this.state.productGroup,
+              activeStatus: this.state.active,
+              discountID: this.state.discount
+            };
+
+          }
+
             await apiCalls.createProductGroup(productGroupBody)
             // .then(res=>console.log('here',res.data))
           }
@@ -74,12 +123,13 @@ class ProductGroup extends Component {
             productGroup: '',
             active: false,
             toedit: '',
-            buttonlabel: "Create"
+            buttonlabel: "Create",
+            discount: 'default'
           })
           
           this.getData()
 
-        
+        console.log(this.state)
     }
 
     editAction= param => async(e) =>{
@@ -87,12 +137,13 @@ class ProductGroup extends Component {
 
       apiCalls.getProductGroupFromID(param)
       .then((res)=>{ 
-        
+        console.log(res.data)
         this.setState({
           toedit: res.data,
           productGroup: res.data.productGroup,
           active: res.data.activeStatus,
-          buttonlabel: 'Update'
+          buttonlabel: 'Update',
+          discount: res.data.discountID
           
         })
       })
@@ -125,7 +176,24 @@ class ProductGroup extends Component {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group"  style={{marginRight: 20}}>
+                  <label htmlFor="inputDiscount">Discount </label>
+                  <select onChange={this.onChangeDiscount} value={this.state.discount}>
+                    <option value='default'>Select Discount</option>
+                    
+                    {this.state.allDiscount.map((el)=>{
+
+                      if(el.activeStatus){
+                        return <option key={el._id} value={el._id}>{el.discountName}</option>
+                      }
+                    })}
+               
+                  </select>
+                </div>
+
+
+                
+                <div className="form-group" >
                   <div className="form-check">
                     <input
                       className="form-check-input"
@@ -139,7 +207,8 @@ class ProductGroup extends Component {
                     </label>
                   </div>
                 </div>
-                <br />
+
+
                 <button
                   type="submit"
                   style={{ margin: 10 }}

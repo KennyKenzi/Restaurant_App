@@ -28,6 +28,10 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 
+    discountID: {
+        type: String
+    },
+
     activeStatus: {
         type: Boolean,
         required: true
