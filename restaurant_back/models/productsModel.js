@@ -6,8 +6,7 @@ const productSchema = new mongoose.Schema({
 
     productGroup:{
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     productGroupID:{
         type: String,
@@ -16,7 +15,8 @@ const productSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true
     },
 
     price:{
