@@ -6,7 +6,7 @@ import apiCalls from '../config/apis'
 
 class Discount extends Component {
     state = {  
-
+ 
         buttonlabel: 'Create',
         discountName: '',
         discountAmount: '',
