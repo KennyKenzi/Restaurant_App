@@ -1,3 +1,5 @@
+var Discount = require('./discountModel')
+
 const mongoose = require ('mongoose')
 
 const productSchema = new mongoose.Schema({
@@ -37,6 +39,19 @@ const productSchema = new mongoose.Schema({
         required: true
     }
 })
+
+
+
+productSchema.statics.calculateDiscount= async (discountID)=>{
+
+    const disc = await Discount.findById(discountID)
+    const prod = this
+    console.log(disc)
+    console.log(prod)
+    return disc
+
+
+}
 
 const Product = mongoose.model('Product', productSchema)
 

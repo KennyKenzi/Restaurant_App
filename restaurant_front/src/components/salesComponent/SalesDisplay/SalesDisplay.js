@@ -5,9 +5,9 @@ import Popup from './../../Popup'
 
 class SalesDisplay extends Component {
     state = { 
-        showPopup: false
+        showPopup: false,
+       
     }
-
 
 
 
@@ -53,6 +53,7 @@ class SalesDisplay extends Component {
               <SalesScreen
                 selectedCheckedProds={this.props.selectedCheckedProds}
                 sendToTop={this.sendToTop}
+                sendTotal = {this.props.sendTotal}
               />
             </div>
 

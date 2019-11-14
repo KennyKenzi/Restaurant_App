@@ -185,6 +185,8 @@ class ProductGroup extends Component {
 
                       if(el.activeStatus){
                         return <option key={el._id} value={el._id}>{el.discountName}</option>
+                      }else{
+                        return ""
                       }
                     })}
                

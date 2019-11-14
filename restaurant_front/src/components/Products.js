@@ -298,6 +298,8 @@ class Products extends Component {
                             {el.discountName}
                           </option>
                         );
+                      }else{
+                        return ""
                       }
                     })}
                   </select>

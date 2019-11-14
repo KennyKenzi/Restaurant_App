@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SalesList from './SalesDisplayListItem'
 //import Popup from '../../Popup';
+//import Popup from '../../Popup';
 //import Popup from 'reactjs-popup'
 
 
@@ -42,9 +43,12 @@ class SalesScreen extends Component {
   
 
                             if(el){
-                                return (
-                                   <SalesList listItems={el} index={index} key={el._id} sendToTopFromDisplayList={this.sendToTop}/>
-                                )
+                               
+                                        return (
+                                            <SalesList listItems={el} index={index} key={el._id} sendToTopFromDisplayList={this.sendToTop}/>
+                                        )
+                              
+                               
                             } else{
                                 return ""
                             }
