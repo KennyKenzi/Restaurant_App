@@ -67,7 +67,7 @@ class ProductGroup extends Component {
     
     onSubmitEvent= async(e)=>{
 
-         e.preventDefault()
+         //e.preventDefault()
 
         let productGroupBody
 
