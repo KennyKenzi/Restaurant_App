@@ -38,11 +38,12 @@ router.post('/api/products', async(req, res, next)=>{
 router.get('/api/product/update/:id', async(req, res)=>{
     
     let id = req.params.id;
-    Product.findById(id, function(err, prod) {
+    Product.findById(id, async function (err, prod) {
        
-        res.status(200).send(prod)
-
-        Product.calculateDiscount(prod.discountID)
+        
+        let newProd = await Product.calculateDiscount(prod)
+        res.status(200).send(newProd)
+        console.log(newProd)
     });
 })
 

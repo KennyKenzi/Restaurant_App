@@ -11,10 +11,10 @@ class SalesDisplay extends Component {
 
 
 
-    sendToTop=(arg1, arg2)=>{
+    // sendToTop=(arg1, arg2)=>{
 
-        this.props.handlePlusMinusEvent(arg1, arg2)
-    }
+    //     this.props.handlePlusMinusEvent(arg1, arg2)
+    // }
 
 
      togglePopup=()=> { 
@@ -52,7 +52,7 @@ class SalesDisplay extends Component {
             <div>
               <SalesScreen
                 selectedCheckedProds={this.props.selectedCheckedProds}
-                sendToTop={this.sendToTop}
+                sendToTop={this.props.handlePlusMinusEvent}
                 sendTotal = {this.props.sendTotal}
               />
             </div>

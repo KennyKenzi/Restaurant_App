@@ -6,20 +6,27 @@ import minus from '../../../minus.svg'
 
 class SalesList extends Component {
     state = { 
-      // finalValue :this.props.listItems
+      //  finalValue : this.props.listItems
 
      }
 
 
     componentDidMount() {
 
-        // this.calculateDiscount()
-        // this.sendTotal()
+      console.log(this.props.listItems)
+      this.props.sendTotal()
     }
 
-    onChangeEvent=param=>()=>{
-        console.log(param)
+    onChangeEvent=params=>(e)=>{
+      // let tempValue = this.props.listItems
+
+      //   console.log(e.target.value)
+      //   tempValue.count = e.target.value
+      //   this.setState({
+      //     finalValue : tempValue
+      //   })
        // console.log(this.state)
+       this.changeQuantity(params, e.target.value)
     }
 
     changeQuantity=(arg1, arg2)=>{
@@ -33,10 +40,6 @@ class SalesList extends Component {
         }
     }
 
-    // sendTotal=()=>{
-    //   console.log(this.state.finalValue)
-    //   this.props.sendTotal(this.state.finalValue)
-    // }
 
 
     // calculateDiscount=async()=>{
@@ -100,11 +103,11 @@ class SalesList extends Component {
 
       
         
-        const {_id, name, count, price, disDisplay} = this.props.listItems
+        const {_id, name, count, price, displayString} = this.props.listItems
 
         return (
 
-        
+        <>
           <tr>
             <th scope="row" style={({ padding: 0 }, { marginBottom: 0.5 })}>
               {1 + this.props.index}
@@ -126,7 +129,16 @@ class SalesList extends Component {
             <td style={{ padding: 0 }}>{price}</td>
             <td style={{ padding: 0 }}>{price * count}</td>
           </tr>
-  
+          <tr>
+            <th scope="row" style={({ padding: 0 }, { marginBottom: 0.5 })}>
+            
+            </th>
+            <td>
+            {displayString}  
+            </td>
+            
+          </tr>
+        </>
 
           
         );

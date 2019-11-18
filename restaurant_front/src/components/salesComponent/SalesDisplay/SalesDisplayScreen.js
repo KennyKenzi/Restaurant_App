@@ -9,13 +9,16 @@ class SalesScreen extends Component {
     state = { 
         
     }
-
-
-    sendToTop=(arg1, arg2)=>{
-
-        this.props.sendToTop(arg1, arg2)
-
+    componentDidMount=()=>{
+      //  console.log(this.props)
     }
+
+
+    // sendToTop=(arg1, arg2)=>{
+
+    //     this.props.sendToTop(arg1, arg2)
+
+    // }
 
  
 
@@ -45,7 +48,7 @@ class SalesScreen extends Component {
                             if(el){
                                
                                         return (
-                                            <SalesList listItems={el} index={index} key={el._id} sendToTopFromDisplayList={this.sendToTop}/>
+                                            <SalesList listItems={el} index={index} key={el._id} sendToTopFromDisplayList={this.props.sendToTop} sendTotal = {this.props.sendTotal}/>
                                         )
                               
                                
