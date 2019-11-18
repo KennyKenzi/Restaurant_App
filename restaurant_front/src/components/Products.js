@@ -7,7 +7,7 @@ import apiCalls from './../config/apis'
 class Products extends Component {
     state = { 
         inputProductGroup: 'default',
-        inputProductGroupID: '',
+        inputProductGroupID: 'default',
         inputProduct:'',
         inputPrice: '',
         inputUOM: 'default',
@@ -65,7 +65,7 @@ class Products extends Component {
         let tempID = e.target.value
         await apiCalls.getProductGroupFromID(tempID)
         .then(res=>{
-            console.log(res)
+            console.log(tempID)
             this.setState({
                 inputProductGroup:  res.data.productGroup,
                 inputProductGroupID : tempID
@@ -171,8 +171,8 @@ class Products extends Component {
        
             this.setState({
                 inputProductGroup: 'default',
-                inputProductGroupID: '',
-                inputProduct: '',
+                inputProductGroupID: 'default',
+                inputProduct: 'default',
                 active: false,
                 inputUOM: 'default',
                 discountID: 'default',
@@ -298,6 +298,8 @@ class Products extends Component {
                             {el.discountName}
                           </option>
                         );
+                      }else{
+                        return ""
                       }
                     })}
                   </select>

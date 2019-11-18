@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../models/productsModel')
+
 //const auth = require('../middleware/auth')
 
 
@@ -12,6 +13,7 @@ router.get('/api/products', async(req, res, next)=>{
             console.log(err);
         } else {
             res.status(200).send(products);
+
         }
     })
 })
@@ -36,9 +38,12 @@ router.post('/api/products', async(req, res, next)=>{
 router.get('/api/product/update/:id', async(req, res)=>{
     
     let id = req.params.id;
-    Product.findById(id, function(err, prod) {
+    Product.findById(id, async function (err, prod) {
        
-        res.status(200).send(prod)
+        
+        let newProd = await Product.calculateDiscount(prod)
+        res.status(200).send(newProd)
+        console.log(newProd)
     });
 })
 

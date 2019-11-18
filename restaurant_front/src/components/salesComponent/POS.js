@@ -19,6 +19,7 @@ class Pos extends Component {
         selectedProdGroupProds: [],
         selectedCardProducts: [],
         totalSale: '',
+        
       }
 
 
@@ -45,8 +46,9 @@ class Pos extends Component {
     
         await apiCalls.getProductFromID(arg1)
         .then((res)=>{
-
+         // console.log(arg1)
             this.setState({
+                
                 selectedCard: res.data
             })
         })
@@ -63,18 +65,29 @@ class Pos extends Component {
 
                          el.count ++
 
-                    }else if(el.count===1 && sign === 'minus'){
+                    }else if(el.count<=1 && sign === 'minus'){
                         
                         arrayofProductsToBeChecked=arrayofProductsToBeChecked.filter(x=>x._id !== el._id)
 
-                    }else{
+                    }else if(el.count > 1 && sign === 'minus'){
+
                         el.count --
+
+                    }else {
+                      if (sign <=0 && sign !== ''){
+                        arrayofProductsToBeChecked=arrayofProductsToBeChecked.filter(x=>x._id !== el._id)
+                      }else {
+                        el.count = sign
+                      }
+                      
                     }
                    
                    el.cost = el.count * el.price
+                }else {
+                  return ""
                 }
               
-            })          
+            })           
         }else {
                     selectedCard.count = 1
                     selectedCard.cost = selectedCard.count * selectedCard.price
@@ -85,21 +98,30 @@ class Pos extends Component {
         selectedCardProducts: arrayofProductsToBeChecked
         })   
 
-        this.calculateTotal()
+        //console.log(this.state.selectedCardProducts)
+        this.calculateTotal(this.state.selectedCardProducts)
 
     }
 
-    calculateTotal=()=>{
-
+    calculateTotal=(arg)=>{
+     
+     // console.log(arg)
+      //console.log(this.state.selectedCardProducts)
+      
         // this.props.selectedCheckedProds
         var total = 0
-        this.state.selectedCardProducts.forEach(el => {
-            total = total + el.cost
-        });
+       // console.log(arg)
+        //this.state.selectedCardProducts.forEach(el => {
+        if(arg){
+          arg.forEach(el => {
+              total = total + el.cost
+          });
 
-        this.setState({
-            totalSale : total
-        })
+          this.setState({
+              totalSale : total
+          })
+        }
+
         
      }
 
@@ -124,7 +146,7 @@ class Pos extends Component {
 
             case 'productGroup':rendered = <ProductGroupSale selectedProds={this.selectedProds}/> ; minrender = <ProductMini selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.counterFromBottom}/>
             break;
-            case 'product': rendered = <ProductSale/>;
+            case 'product': rendered = <ProductSale selectedGroupProds={this.state.selectedProdGroupProds} handleCheckoutListEvent={this.counterFromBottom}/>;
             break;
             case 'partnerGroup': rendered = <PartnerGroupSale/>; minrender = <PartnerMini/>
             break;
@@ -157,6 +179,7 @@ class Pos extends Component {
                     totalSale={this.state.totalSale}
                     handlePlusMinusEvent={this.counterFromBottom}
                     clearDisplay={this.clearDisplay}
+                    sendTotal = {this.calculateTotal}
                   />
                 </div>
               </div>
