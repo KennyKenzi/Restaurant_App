@@ -1,4 +1,7 @@
 var Discount = require('./discountModel')
+var ProductGroup = require('./productGroupModel')
+var config = require('../config/config')
+
 
 const mongoose = require ('mongoose')
 
@@ -34,8 +37,13 @@ const productSchema = new mongoose.Schema({
         type: String
     },
 
-    displayString: {
-        type: String
+    displayStringForProd: {
+        type: String,
+        default: ''
+    },
+    displayStringForProdGrp: {
+        type: String,
+        default: ''
     },
 
     activeStatus: {
@@ -46,56 +54,58 @@ const productSchema = new mongoose.Schema({
 
 
 
+
 productSchema.statics.calculateDiscount= async (prod)=>{
 
-    //console.log(prod)
-    let newProd
+    console.log('1',prod)
+ 
 
-    if(prod.discountID){
+    const prodGrp = await ProductGroup.findById(prod.productGroupID)
+    console.log('2',prodGrp)
+
+    let alteredProd 
+    if (prodGrp.discountID){ 
+
+        let discProd = await Discount.findById(prodGrp.discountID)
+        console.log('2.5', discProd)
         
-        const disc = await Discount.findById(prod.discountID)
-        // console.log(disc)
-        // console.log(prod)
-        
-
-        if(disc.activeStatus){
-
-                if(disc.discountType === 'Flat'){
-
-                    console.log('this is flat rate')
-                    newProd=prod
-                    newProd.price = newProd.price - disc.discountAmount
-                    newProd.displayString = `Discount of #${disc.discountAmount} is being applied to ${newProd.name}`
-                    if (newProd.price < 0){
-                        newProd.price = 0
+            if(discProd.discountType === 'Flat'){
+                console.log('3','product group flat discount')
+                    alteredProd = prod
+                    alteredProd.price = alteredProd.price - discProd.discountAmount
+                    if (alteredProd.price < 0) {
+                        alteredProd.price = 0
                     }
-                    
-                    //console.log(newProd)
-                   // return newProd
+                    alteredProd.displayStringForProdGrp = `Discount of #${discProd.discountAmount} is being applied to all ${prodGrp.productGroup} \n`
 
-                }else{
 
-                    console.log('this is percentage rate')
-                    newProd = prod
-                    newProd.price = newProd.price - (newProd.price * (disc.discountAmount/100))
-                    newProd.displayString = `Discount of ${disc.discountAmount}% is being applied to ${newProd.name}`
-                    if (newProd.price < 0){
-                        newProd.price = 0
-                    }
-                    
-                }
-        }else{
-            newProd = prod
-        }
+            }else if (discProd.discountType === 'percentage'){
+                console.log('4','product group percentage discount')
+                alteredProd = prod
+
+                alteredProd.price = alteredProd.price - (alteredProd.price * (discProd.discountAmount/100))
+                alteredProddisplayStringForProdGrp = `Discount of ${discProd.discountAmount}% is being applied to all ${prodGrp.productGroup} \n`
+
+            }
+        console.log('5',alteredProd)
+
+       return config(alteredProd)
+
 
     }else{
 
-            newProd = prod
+        console.log('5.5',prod)
+        return config(prod)
+    
+
     }
 
-    console.log(newProd)
 
-    return newProd
+  
+
+
+    //console.log(newProd)
+
 }
    
 

@@ -103,7 +103,7 @@ class SalesList extends Component {
 
       
         
-        const {_id, name, count, price, displayString} = this.props.listItems
+        const {_id, name, count, price, displayStringForProdGrp, displayStringForProd} = this.props.listItems
 
         return (
 
@@ -134,7 +134,8 @@ class SalesList extends Component {
             
             </th>
             <td>
-            {displayString}  
+            {displayStringForProdGrp}
+            {displayStringForProd}  
             </td>
             
           </tr>
