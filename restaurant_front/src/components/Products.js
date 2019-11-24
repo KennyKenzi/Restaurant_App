@@ -119,7 +119,7 @@ class Products extends Component {
                     price: this.state.inputPrice,
                     UOM: this.state.inputUOM,
                     discountID: '',
-                    activeStatus: this.state.active
+                    activeStatus: this.state.active,
                  }
 
             }else{
@@ -130,7 +130,7 @@ class Products extends Component {
                     price: this.state.inputPrice,
                     UOM: this.state.inputUOM,
                     discountID: this.state.discountID,
-                    activeStatus: this.state.active
+                    activeStatus: this.state.active,
                  }
             }
             
@@ -145,7 +145,7 @@ class Products extends Component {
                     price: this.state.inputPrice,
                     unitOfMeasure: this.state.inputUOM,
                     discountID: '',
-                    activeStatus: this.state.active
+                    activeStatus: this.state.active,
                     }
 
             }else{
@@ -156,7 +156,7 @@ class Products extends Component {
                     price: this.state.inputPrice,
                     unitOfMeasure: this.state.inputUOM,
                     discountID: this.state.discountID,
-                    activeStatus: this.state.active
+                    activeStatus: this.state.active,
                     }
 
             }
@@ -188,7 +188,7 @@ class Products extends Component {
 
         apiCalls.getProductFromID(param)
         .then((res)=>{
-            
+          console.log(res)
             this.setState({
               toedit: res.data,
               inputProductGroup: res.data.productGroup,
@@ -198,7 +198,9 @@ class Products extends Component {
               inputUOM: res.data.unitOfMeasure,
               discountID: res.data.discountID,
               active: res.data.activeStatus,
-              buttonlabel: 'Update'
+              buttonlabel: 'Update',
+              displayStringForProdGrp: res.data.displayStringForProdGrp,
+              displayStringForProd: res.data.displayStringForProd
               
             })
           })

@@ -42,16 +42,17 @@ router.get('/api/product/update/:id', async(req, res)=>{
        
         
         let newProd = await Product.calculateDiscount(prod)
+        console.log('router point', newProd)
         res.status(200).send(newProd)
-        console.log(newProd)
+        
     });
-})
+})  
 
 router.get('/api/product/sale/:id', async(req, res)=>{
                 
     let id = req.params.id
     Product.find({productGroupID:id}, function(err, prods) {
-       
+        // console.log('router point', newProd)
         res.status(200).send(prods)
     });
 
