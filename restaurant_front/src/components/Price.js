@@ -17,6 +17,7 @@ class Price extends Component {
         
      }
     render() { 
+        console.log(this.state.priceList)
         
         return ( 
             <div>

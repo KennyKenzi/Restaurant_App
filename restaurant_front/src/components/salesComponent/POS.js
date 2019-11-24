@@ -82,7 +82,7 @@ class Pos extends Component {
                       
                     }
                    
-                   el.cost = el.count * el.price
+                   el.cost = el.count * el.discountedPrice
                 }else {
                   return ""
                 }
@@ -90,7 +90,7 @@ class Pos extends Component {
             })           
         }else {
                     selectedCard.count = 1
-                    selectedCard.cost = selectedCard.count * selectedCard.price
+                    selectedCard.cost = selectedCard.count * selectedCard.discountedPrice
                     arrayofProductsToBeChecked.push(selectedCard)
         }
 
@@ -115,6 +115,7 @@ class Pos extends Component {
         if(arg){
           arg.forEach(el => {
               total = total + el.cost
+              console.log(el)
           });
 
           this.setState({

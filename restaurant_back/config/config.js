@@ -17,10 +17,11 @@ console.log('5.6',prod)
 
                     console.log('6','this is flat rate')
                     newProd=prod
-                    newProd.price = newProd.price - disc.discountAmount
-                    newProd.displayStringForProd = `Discount of #${disc.discountAmount} is being applied to ${newProd.name}`
-                    if (newProd.price < 0){
-                        newProd.price = 0
+                   // newProd.originalPrice = prod.price
+                    newProd.discountedPrice = newProd.discountedPrice - disc.discountAmount
+                    newProd.displayStringForProd = ` Discount of #${disc.discountAmount} is being applied to each ${newProd.unitOfMeasure} of ${newProd.name}`
+                    if (newProd.discountedPrice < 0){
+                        newProd.discountedPrice = 0
                     }
                     
                     //console.log(newProd)
@@ -30,8 +31,9 @@ console.log('5.6',prod)
 
                     console.log('7','this is percentage rate')
                     newProd = prod
-                    newProd.price = newProd.price - (newProd.price * (disc.discountAmount/100))
-                    newProd.displayStringForProd = `Discount of ${disc.discountAmount}% is being applied to ${newProd.name}`
+                  //  newProd.originalPrice = prod.price
+                    newProd.discountedPrice = newProd.discountedPrice - (newProd.discountedPrice * (disc.discountAmount/100))
+                    newProd.displayStringForProd = `Discount of ${disc.discountAmount}% is being applied to each ${newProd.unitOfMeasure} of ${newProd.name}`
                     if (newProd.price < 0){
                         newProd.price = 0
                     }
@@ -39,15 +41,17 @@ console.log('5.6',prod)
                 }
         }else{
             newProd = prod
+            newProd.discountedPrice = prod.price
         }
 
     }else{
 
             newProd = prod
+            newProd.discountedPrice = prod.discountedPrice
     }
 
-console.log('final',newProd)
-return newProd
+    console.log('final',newProd)
+    return newProd
 }
 
 module.exports = calculateProdDiscount
