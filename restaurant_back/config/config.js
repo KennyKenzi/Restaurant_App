@@ -1,19 +1,19 @@
 var Discount = require('../models/discountModel')
 
 calculateProdDiscount = async (prod)=>{
-
+console.log('5.6',prod)
     let newProd
-    
+     
 
     if(prod.discountID){
     
         const disc = await Discount.findById(prod.discountID)
         console.log('prod has discount', disc.discountType)
-        // console.log(prod)
+        
 
         if(disc.activeStatus){
 
-                if(disc.discountType === 'flat'){
+                if(disc.discountType === 'Flat'){
 
                     console.log('6','this is flat rate')
                     newProd=prod
@@ -26,7 +26,7 @@ calculateProdDiscount = async (prod)=>{
                     //console.log(newProd)
                    // return newProd
 
-                }else if (disc.discountType === 'percentage'){
+                }else if (disc.discountType === 'Percentage'){
 
                     console.log('7','this is percentage rate')
                     newProd = prod

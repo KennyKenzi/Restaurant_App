@@ -61,22 +61,22 @@ productSchema.statics.calculateDiscount= async (prod)=>{
  
 
     const prodGrp = await ProductGroup.findById(prod.productGroupID)
-    // console.log('2',prodGrp)
+    console.log('2',prodGrp)
 
     let alteredProd 
-    if (prodGrp.discountID){
+    if (prodGrp.discountID){ 
 
         let discProd = await Discount.findById(prodGrp.discountID)
-        // console.log('2.5', discProd)
+        console.log('2.5', discProd)
         
-            if(discProd.discountType === 'flat'){
+            if(discProd.discountType === 'Flat'){
                 console.log('3','product group flat discount')
                     alteredProd = prod
                     alteredProd.price = alteredProd.price - discProd.discountAmount
                     if (alteredProd.price < 0) {
                         alteredProd.price = 0
                     }
-                    alteredProd.displayStringForProdGrp = `Discount of #{discProd.discountAmount} is being applied to ${prodGrp.productGroup}`
+                    alteredProd.displayStringForProdGrp = `Discount of #${discProd.discountAmount} is being applied to all ${prodGrp.productGroup} \n`
 
 
             }else if (discProd.discountType === 'percentage'){
@@ -84,12 +84,12 @@ productSchema.statics.calculateDiscount= async (prod)=>{
                 alteredProd = prod
 
                 alteredProd.price = alteredProd.price - (alteredProd.price * (discProd.discountAmount/100))
-                alteredProddisplayStringForProdGrp = `Discount of ${discProd.discountAmount}% is being applied to ${prodGrp.productGroup}`
+                alteredProddisplayStringForProdGrp = `Discount of ${discProd.discountAmount}% is being applied to all ${prodGrp.productGroup} \n`
 
             }
-        // console.log('5',alteredProd)
+        console.log('5',alteredProd)
 
-        config(alteredProd)
+       return config(alteredProd)
 
 
     }else{
