@@ -38,14 +38,14 @@ router.post('/api/products', async(req, res, next)=>{
 router.get('/api/product/update/:id', async(req, res)=>{
     
     let id = req.params.id;
-    Product.findById(id, async function (err, prod) {
-       
-        let newProd = await Product.calculateDiscount(prod)
-        console.log('router point1', prod)
-        console.log('router point2', newProd)
-        res.status(200).send(newProd)
-        
-    });
+    let prod = await Product.findById(id, async function (err, prod) {
+  
+    }).lean();
+
+    console.log('router point1', prod)  
+    let newProd = await Product.calculateDiscount(prod)
+    console.log('router point2', newProd)
+    res.status(200).send(newProd)
 })  
 
 router.get('/api/product/sale/:id', async(req, res)=>{

@@ -12,8 +12,9 @@ class Products extends Component {
         inputPrice: '',
         inputUOM: 'default',
         UOM: [
-            {_id: 0, name: 'test 1'},
-            {_id: 1, name: 'test 2'}
+            {_id: 0, name: 'unit'},
+            {_id: 1, name: 'serving'},
+            {_id: 2, name: 'piece'}
         ],
         active: false,
         productGroups:[],
@@ -188,7 +189,7 @@ class Products extends Component {
 
         apiCalls.getProductFromID(param)
         .then((res)=>{
-          console.log(res)
+          console.log(res.data)
             this.setState({
               toedit: res.data,
               inputProductGroup: res.data.productGroup,

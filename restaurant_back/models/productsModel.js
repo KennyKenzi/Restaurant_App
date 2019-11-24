@@ -37,14 +37,14 @@ const productSchema = new mongoose.Schema({
         type: String
     },
 
-    displayStringForProd: {
-        type: String,
-        default: ''
-    },
-    displayStringForProdGrp: {
-        type: String,
-        default: ''
-    },
+    // displayStringForProd: {
+    //     type: String,
+    //     default: ''
+    // },
+    // displayStringForProdGrp: {
+    //     type: String,
+    //     default: ''
+    // },
 
     activeStatus: {
         type: Boolean,
@@ -72,35 +72,37 @@ productSchema.statics.calculateDiscount= async (prod)=>{
             if(discProd.discountType === 'Flat'){
                 console.log('3','product group flat discount')
                     alteredProd = prod
-                    alteredProd.price = alteredProd.price - discProd.discountAmount
-                    if (alteredProd.price < 0) {
-                        alteredProd.price = 0
+                    //alteredProd.originalPrice = prod.price
+                    alteredProd.discountedPrice = alteredProd.price- discProd.discountAmount
+                    if (alteredProd.discountedPrice < 0) {
+                        alteredProd.discountedPrice = 0
                     }
-                    alteredProd.displayStringForProdGrp = `Discount of #${discProd.discountAmount} is being applied to all ${prodGrp.productGroup} \n`
-
+                    alteredProd.displayStringForProdGrp = `Discount of #${discProd.discountAmount} is being applied to each ${alteredProd.unitOfMeasure} of all ${prodGrp.productGroup} \n`
+                    
 
             }else if (discProd.discountType === 'percentage'){
                 console.log('4','product group percentage discount')
                 alteredProd = prod
-
-                alteredProd.price = alteredProd.price - (alteredProd.price * (discProd.discountAmount/100))
-                alteredProddisplayStringForProdGrp = `Discount of ${discProd.discountAmount}% is being applied to all ${prodGrp.productGroup} \n`
+               // alteredProd.originalPrice = prod.price
+                alteredProd.discountedPrice = alteredProd.discountedPrice - (alteredProd.discountedPrice * (discProd.discountAmount/100))
+                alteredProddisplayStringForProdGrp = `Discount of ${discProd.discountAmount}% is being applied to each ${alteredProd.unitOfMeasure} of all ${prodGrp.productGroup} \n`
 
             }
         console.log('5',alteredProd)
 
-       return config(alteredProd)
+        return config(alteredProd)
 
 
     }else{
-
-        console.log('5.5',prod)
-        return config(prod)
+        alteredProd = prod
+        alteredProd.discountedPrice = alteredProd.price
+        console.log('5.5', alteredProd)
+        return config(alteredProd)
     
 
     }
 
-
+        // return alteredProd
   
 
 

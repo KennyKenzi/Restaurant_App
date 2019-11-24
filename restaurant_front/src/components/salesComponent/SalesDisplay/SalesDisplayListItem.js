@@ -103,7 +103,7 @@ class SalesList extends Component {
 
       
         
-        const {_id, name, count, price, displayStringForProdGrp, displayStringForProd} = this.props.listItems
+        const {_id, name, count, discountedPrice, displayStringForProdGrp, displayStringForProd} = this.props.listItems
 
         return (
 
@@ -126,16 +126,19 @@ class SalesList extends Component {
               </button>
             </td>
 
-            <td style={{ padding: 0 }}>{price}</td>
-            <td style={{ padding: 0 }}>{price * count}</td>
+            <td style={{ padding: 0 }}>{discountedPrice}</td>
+            <td style={{ padding: 0 }}>{discountedPrice * count}</td>
           </tr>
           <tr>
-            <th scope="row" style={({ padding: 0 }, { marginBottom: 0.5 })}>
-            
-            </th>
-            <td>
+            <th scope="row"></th>
+            <td colspan="3" style={({paddingBottom: 0}, {fontSize: "75%"})}>
             {displayStringForProdGrp}
-            {displayStringForProd}  
+            </td>
+          </tr>
+          <tr>  
+            <th scope="row" ></th>
+            <td colspan="3" style={({ padding: 0 }, {fontSize: "75%"})}>
+            {displayStringForProd}    
             </td>
             
           </tr>
